@@ -1,0 +1,27 @@
+<!-- В переменной day лежит какое-то число из интервала от 1 до 31. Определите в какую декаду месяца попадает это число (в первую, вторую или третью). -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let day=Number(prompt("Введите день месяца"));
+        if(day<=10){
+            alert("Первая декада");
+        }else if(day>10&day<=20){
+            alert("Вторая декада");
+        }
+        else if(day>20&day<=31){
+            alert("Третья декада");
+        }
+        else{
+            alert("Неверно введено число");
+        }
+        
+    </script>
+</body>
+</html>

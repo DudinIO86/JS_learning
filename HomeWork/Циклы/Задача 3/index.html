@@ -1,0 +1,42 @@
+<!-- Используя Math.random() вам необходимо генерировать цифры от 0 до 9, и создать массив состоящий из 5 таких элементов
+1. Рассчитать сумму элементов этого массива
+2. Найти минимальное число
+3. Найти есть ли в этом массиве число 3 -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      let arr = [];
+      let sum = 0;
+
+      for (let index = 0; index < 5; index++) {
+        arr[index] = Math.round(Math.random() * 9);
+      }
+      for (let index = 0; index < 5; index++) {
+        sum = sum + arr[index];
+      }
+
+      console.log(arr);
+      console.log("Сумма чисел:" + sum);
+
+
+      console.log("Минимальное число:" +  Math.min.apply(null,arr));
+
+      let a=arr.includes(3);
+      if(a==true){
+        console.log("Число 3 есть");
+      }
+      else{
+        console.log("Числа 3 нет");
+      }
+
+      
+    </script>
+  </body>
+</html>
