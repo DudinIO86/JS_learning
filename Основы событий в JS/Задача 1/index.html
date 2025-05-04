@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" />
+    <title>Document</title>
+  </head>
+  <body>
+    <button class="button">Кнопка</button>
+    <script>
+      const buttonEl = document.querySelector(".button");
+      const bodyEl = document.querySelector("body");
+
+      bodyEl.onload = function () {
+        console.log("Загрузилось");
+      };
+
+      window.addEventListener("load", function (event) {
+        console.log("Все загрузилось");
+      });
+
+      buttonEl.onclick=function(){
+        console.log("Click onclick");
+      }
+
+      buttonEl.addEventListener("click",function(event){
+        console.log("Click onclick 2");
+      })
+    </script>
+  </body>
+</html>

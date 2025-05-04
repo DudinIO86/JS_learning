@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <ul class="ul">
+      <li class="list">list-1</li>
+      <li class="list">list-2</li>
+      <li class="list">list-3</li>
+    </ul>
+    <button class="buttonAdd">add</button>
+    <button class="buttonRemove">remove</button>
+    <button class="add">add class</button>
+    <script>
+      const ulEl = document.querySelector('ul');
+
+      const btnEl=document.querySelector('.buttonAdd');
+      const btn2El=document.querySelector('.buttonRemove');
+      
+
+      btnEl.addEventListener('click',function(e){
+        const listEl = document.createElement('li');
+        listEl.classList.add('list');
+        listEl.textContent="Новый элемент списка";
+        ulEl.appendChild(listEl);
+      })
+
+      btn2El.addEventListener('click',function(e){
+        const firstListEl=document.querySelector('.list:first-child');
+        ulEl.removeChild(firstListEl);
+      })
+
+      const addEl=document.querySelector('.add');
+      addEl.addEventListener('click',function(e){
+        const target=e.target;
+        target.classList.add('click');
+      })
+    </script>
+  </body>
+</html>
