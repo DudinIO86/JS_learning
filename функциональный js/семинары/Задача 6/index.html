@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function sumDigits(num) {
+        if (num < 10) {
+          return num;
+        }
+        return (num % 10) + sumDigits(Math.floor(num / 10));
+      }
+
+      console.log(sumDigits(123));
+      console.log(sumDigits(456789));
+    </script>
+  </body>
+</html>
