@@ -1,29 +1,65 @@
 async function main() {
   try {
-    const blockEl = document.querySelector(".content");
+    const blockEl = document.querySelector(".container-fluid");
     const response = await fetch("/api/data"); 
     let jsonData = await response.json();
 
     jsonData.map((el) => {
+      const cardEl=document.createElement("div");
+      cardEl.classList.add("card");
+      cardEl.style.boxShadow="2px 2px 20px rgba(255, 255, 16, 0.4)";
+      cardEl.style.width="18rem";
+
+      const cardBodyEl=document.createElement("div");
+      cardBodyEl.classList.add("card-body");
+      cardEl.appendChild(cardBodyEl);
+
+      blockEl.appendChild(cardEl);
+
       const nameEl = document.createElement("p");
-      nameEl.classList.add("text");
-      nameEl.textContent = `Наименование предмета: ${el.name}`;
-      blockEl.appendChild(nameEl);
+      nameEl.classList.add("card-text");
+      nameEl.classList.add("fs-6");
+      nameEl.classList.add("fw-bold");
+      nameEl.textContent = "Наименование предмета:"+"\n"+ el.name;
+      cardBodyEl.appendChild(nameEl);
 
       const timeEl = document.createElement("p");
-      timeEl.classList.add("text");
+      timeEl.classList.add("card-text");
       timeEl.textContent = `Время: ${el.time}`;
-      blockEl.appendChild(timeEl);
+      cardBodyEl.appendChild(timeEl);
       
       const maxEl = document.createElement("p");
-      maxEl.classList.add("text");
+      maxEl.classList.add("card-text");
+      maxEl.classList.add("max");
       maxEl.textContent = `Максимальное кол-во мест для записи: ${el.max}`;
-      blockEl.appendChild(maxEl);
+      cardBodyEl.appendChild(maxEl);
 
       const numEl = document.createElement("p");
-      numEl.classList.add("text");
+      numEl.classList.add("card-text");
+      numEl.classList.add("record");
       numEl.textContent = `Кол-во записанных: ${el.numberRecorded}`;
-      blockEl.appendChild(numEl);
+      cardBodyEl.appendChild(numEl);
+
+      const divButton=document.createElement("div");
+      divButton.classList.add("container");
+      divButton.classList.add("row");
+      divButton.classList.add("gap-2");
+      cardBodyEl.appendChild(divButton);
+
+      const addButton=document.createElement("button");
+      addButton.classList.add("btn");
+      addButton.classList.add("btn-outline-success");
+      addButton.type="button";
+      addButton.textContent="Записаться";
+      divButton.appendChild(addButton);
+
+       const remButton=document.createElement("button");
+      remButton.classList.add("btn");
+      remButton.classList.add("btn-outline-danger");
+      remButton.type="button";
+      remButton.textContent="Отменить запись";
+      divButton.appendChild(remButton);
+   
     });
   } catch (error) {
     console.error(error);
