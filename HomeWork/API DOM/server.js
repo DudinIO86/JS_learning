@@ -15,6 +15,7 @@ app.use(express.static(path.join(__dirname, ''), {
     }
   }
 }));
+app.use(express.json());
 
 app.get("/", (req, res) => {
  
@@ -37,6 +38,21 @@ app.get("/api/data", async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
+
+app.post('/save-data', async (req, res) => {
+  try {
+    const jsonData = req.body;
+    const filePath = 'data.json'; // Путь к файлу на сервере
+
+    await fs.writeFile(filePath, JSON.stringify(jsonData, null, 2)); // Запись в файл с отступом
+
+    res.send('Данные успешно сохранены');
+  } catch (error) {
+    console.error('Ошибка при сохранении данных:', error);
+    res.status(500).send('Ошибка сервера');
+  }
+});
+
 
 app.listen(port, () => {
   console.log(`Сервер запущен на порту ${port}`);
