@@ -37,6 +37,8 @@ async function main() {
       const numEl = document.createElement("p");
       numEl.classList.add("card-text");
       numEl.classList.add("record");
+      numEl.id = el.id;
+          numEl.dataset.id = el.id;
       numEl.textContent = `Кол-во записанных: ${el.numberRecorded}`;
       cardBodyEl.appendChild(numEl);
 
@@ -49,6 +51,8 @@ async function main() {
       const addButton = document.createElement("button");
       addButton.classList.add("btn");
       addButton.classList.add("btn-outline-success");
+      addButton.classList.add("button-submit");
+      addButton.id = el.id;
       addButton.type = "button";
       addButton.textContent = "Записаться";
       divButton.appendChild(addButton);
@@ -56,33 +60,112 @@ async function main() {
       const remButton = document.createElement("button");
       remButton.classList.add("btn");
       remButton.classList.add("btn-outline-danger");
+      remButton.classList.add("button-reject'");
+      remButton.id = el.id;
       remButton.type = "button";
       remButton.textContent = "Отменить запись";
       divButton.appendChild(remButton);
 
-      // fetch('/save-data', { // Замените '/save-data' на ваш серверный endpoint
-      //   method: 'POST',
-      //   headers: {
-      //     'Content-Type': 'application/json'
-      //   },
-      //   body: JSON.stringify(jsonData)
-      // })
-      // .then(response => {
-      //   if (!response.ok) {
-      //     throw new Error(`HTTP error! status: ${response.status}`);
-      //   }
-      //   return response.text(); // или response.json() если сервер возвращает JSON
-      // })
-      // .then(data => {
-      //   console.log('Данные успешно сохранены:', data);
-      // })
-      // .catch(error => {
-      //   console.error('Ошибка при сохранении данных:', error);
-      // });
+      if (Number(el.max) === Number(el.numberRecorded)) {
+        const submitButton = document.getElementById(`${el.id}`);
+        submitButton.classList.add("disabled");
+      }
     });
+
+    const bodyEl = document.querySelector(".container-fluid");
+
+    bodyEl.addEventListener("click", (e) => {
+      console.log(e.target.id);
+      if (e.target.classList.contains("button-submit")) {
+         console.log(e.target.id);
+         jsonData[e.target.id - 1].numberRecorded =
+          Number(jsonData[e.target.id - 1].numberRecorded) + 1;
+      
+        const pEl = document.querySelector(`[data-id="${e.target.id}"]`);
+      
+       
+        pEl.textContent = `Кол-во записанных: ${jsonData[e.target.id - 1].numberRecorded}`;
+        
+      }
+      // if (e.target.classList.contains(".button-submit")) {
+      //   jsonData[e.target.id - 1].numberRecorded =
+      //     Number(jsonData[e.target.id - 1].numberRecorded) + 1;
+      //   const currentNumberRecoded = document.querySelector(
+      //     `[data-id="${e.target.id}"]`
+      //   );
+      // const span = currentNumberRecoded.querySelector(".record");
+      // span.textContent =jsonData[e.target.id - 1].numberRecorded;
+      // console.log(jsonData[e.target.id - 1].numberRecorded);
+
+      //   const currentSubmitButton = document.getElementById(`${e.target.id}`);
+      //   currentSubmitButton.classList.add("disabled");
+      //   currentSubmitButton.nextElementSibling.classList.remove("disabled");
+      // }
+    });
+
+    // fetch('/save-data', { // Замените '/save-data' на ваш серверный endpoint
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json'
+    //   },
+    //   body: JSON.stringify(jsonData)
+    // })
+    // .then(response => {
+    //   if (!response.ok) {
+    //     throw new Error(`HTTP error! status: ${response.status}`);
+    //   }
+    //   return response.text(); // или response.json() если сервер возвращает JSON
+    // })
+    // .then(data => {
+    //   console.log('Данные успешно сохранены:', data);
+    // })
+    // .catch(error => {
+    //   console.error('Ошибка при сохранении данных:', error);
+    // });
   } catch (error) {
     console.error(error);
   }
 }
 
 main();
+
+// const bodyEl = document.querySelector(".button-submit");
+
+//     bodyEl.addEventListener("click", (e) => {
+//       console.log(e.target.classList);
+// if (e.target.classList.contains(".button-submit")) {
+//   jsonData[e.target.id - 1].numberRecorded =
+//     Number(jsonData[e.target.id - 1].numberRecorded) + 1;
+//   const currentNumberRecoded = document.querySelector(
+//     `[data-id="${e.target.id}"]`
+//   );
+//   const span = currentNumberRecoded.querySelector(".record");
+//   span.textContent =jsonData[e.target.id - 1].numberRecorded;
+//   console.log(jsonData[e.target.id - 1].numberRecorded);
+
+// const currentSubmitButton = document.getElementById(`${e.target.id}`);
+// currentSubmitButton.classList.add("disabled");
+// currentSubmitButton.nextElementSibling.classList.remove("disabled");
+// }
+// if (e.target.classList.contains("button-reject")) {
+//   console.log(jsonData);
+//   let currentWorkoutsInfoItem = jsonData.filter(
+//     (item) => item.name_of_workout === e.target.dataset.id
+//   );
+//   let index = Number(currentWorkoutsInfoItem[0].id) - 1;
+//   jsonData[index].numberRecorded =
+//     jsonData[index].numberRecorded - 1;
+
+//   const currentNumberOfParticipants = document.querySelector(
+//     `[data-id="${index + 1}"]`
+//   );
+//   const span = currentNumberOfParticipants.querySelector("span");
+//   span.textContent = workoutsInfo[index].numberRecorded;
+
+//   const currentRejectButton = document.querySelector(
+//     `[data-id="${e.target.dataset.id}"]`
+//   );
+//   currentRejectButton.classList.add("disabled");
+//   currentRejectButton.previousElementSibling.classList.remove("disabled");
+// }
+// });
