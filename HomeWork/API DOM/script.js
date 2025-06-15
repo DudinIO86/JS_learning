@@ -38,7 +38,7 @@ async function main() {
       numEl.classList.add("card-text");
       numEl.classList.add("record");
       numEl.id = el.id;
-          numEl.dataset.id = el.id;
+      numEl.dataset.id = el.id;
       numEl.textContent = `Кол-во записанных: ${el.numberRecorded}`;
       cardBodyEl.appendChild(numEl);
 
@@ -60,15 +60,17 @@ async function main() {
       const remButton = document.createElement("button");
       remButton.classList.add("btn");
       remButton.classList.add("btn-outline-danger");
-      remButton.classList.add("button-reject'");
+      remButton.classList.add("button-reject");
       remButton.id = el.id;
       remButton.type = "button";
       remButton.textContent = "Отменить запись";
       divButton.appendChild(remButton);
 
-      if (Number(el.max) === Number(el.numberRecorded)) {
-        const submitButton = document.getElementById(`${el.id}`);
-        submitButton.classList.add("disabled");
+      if (Number(el.max) < Number(el.numberRecorded)+1) {
+        addButton.classList.add("disabled");
+      }
+       if (Number(el.numberRecorded) < 1) {
+        remButton.classList.add("disabled");
       }
     });
 
@@ -76,52 +78,51 @@ async function main() {
 
     bodyEl.addEventListener("click", (e) => {
       console.log(e.target.id);
+      
       if (e.target.classList.contains("button-submit")) {
-         console.log(e.target.id);
-         jsonData[e.target.id - 1].numberRecorded =
+        console.log(e.target.id);
+        jsonData[e.target.id - 1].numberRecorded =
           Number(jsonData[e.target.id - 1].numberRecorded) + 1;
-      
+
         const pEl = document.querySelector(`[data-id="${e.target.id}"]`);
-      
-       
-        pEl.textContent = `Кол-во записанных: ${jsonData[e.target.id - 1].numberRecorded}`;
+
+        pEl.textContent = `Кол-во записанных: ${
+          jsonData[e.target.id - 1].numberRecorded
+        }`
         
+      } else if (e.target.classList.contains("button-reject")) {
+        console.log(e.target.id);
+        
+        jsonData[e.target.id - 1].numberRecorded =
+          Number(jsonData[e.target.id - 1].numberRecorded) -1;
+
+        const pEl = document.querySelector(`[data-id="${e.target.id}"]`);
+
+        pEl.textContent = `Кол-во записанных: ${
+          jsonData[e.target.id - 1].numberRecorded
+        }`;
       }
-      // if (e.target.classList.contains(".button-submit")) {
-      //   jsonData[e.target.id - 1].numberRecorded =
-      //     Number(jsonData[e.target.id - 1].numberRecorded) + 1;
-      //   const currentNumberRecoded = document.querySelector(
-      //     `[data-id="${e.target.id}"]`
-      //   );
-      // const span = currentNumberRecoded.querySelector(".record");
-      // span.textContent =jsonData[e.target.id - 1].numberRecorded;
-      // console.log(jsonData[e.target.id - 1].numberRecorded);
-
-      //   const currentSubmitButton = document.getElementById(`${e.target.id}`);
-      //   currentSubmitButton.classList.add("disabled");
-      //   currentSubmitButton.nextElementSibling.classList.remove("disabled");
-      // }
+      fetch("/save-data", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(jsonData),
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+          return response.text(); // или response.json() если сервер возвращает JSON
+        })
+        .then((data) => {
+          console.log("Данные успешно сохранены:", data);
+        })
+        .catch((error) => {
+          console.error("Ошибка при сохранении данных:", error);
+        });
+        location.reload();
     });
-
-    // fetch('/save-data', { // Замените '/save-data' на ваш серверный endpoint
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json'
-    //   },
-    //   body: JSON.stringify(jsonData)
-    // })
-    // .then(response => {
-    //   if (!response.ok) {
-    //     throw new Error(`HTTP error! status: ${response.status}`);
-    //   }
-    //   return response.text(); // или response.json() если сервер возвращает JSON
-    // })
-    // .then(data => {
-    //   console.log('Данные успешно сохранены:', data);
-    // })
-    // .catch(error => {
-    //   console.error('Ошибка при сохранении данных:', error);
-    // });
   } catch (error) {
     console.error(error);
   }

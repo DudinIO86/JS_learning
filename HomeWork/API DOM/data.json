@@ -7,35 +7,35 @@
     "numberRecorded": 0
   },
   {
-     "id": 2,
+    "id": 2,
     "name": "Fizika",
     "time": "3.06.2025 19:00",
     "max": 20,
-    "numberRecorded": 0
+    "numberRecorded": 16
   },
   {
-     "id": 3,
+    "id": 3,
     "name": "Astronomy",
     "time": "3.12.2025 18:00",
     "max": 25,
-    "numberRecorded": 0
+    "numberRecorded": 8
   },
   {
-     "id": 4,
+    "id": 4,
     "name": "Medic",
     "time": "23.05.2025 11:00",
     "max": 10,
-    "numberRecorded": 0
+    "numberRecorded": 15
   },
   {
-     "id": 5,
+    "id": 5,
     "name": "Himia",
     "time": "3.06.2025 19:00",
     "max": 20,
-    "numberRecorded": 0
+    "numberRecorded": 4
   },
   {
-     "id": 6,
+    "id": 6,
     "name": "Fizra",
     "time": "3.12.2025 18:00",
     "max": 25,
